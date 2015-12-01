@@ -3,13 +3,9 @@ An Android App for time management built in 2011 with Flex and Air
 
 I built this app to test the new Air for Android/iOs capabilities.
 
-![alt text](screencaps/otimesuite1.jpg "App")
+![alt text](screencaps/otimesuite1.jpg "App") ![alt text](screencaps/otimesuite2.jpg "App")
 
-![alt text](screencaps/otimesuite2.jpg "App")
-
-![alt text](screencaps/otimesuite3.jpg "App")
-
-![alt text](screencaps/otimesuite4.jpg "App")
+![alt text](screencaps/otimesuite3.jpg "App") ![alt text](screencaps/otimesuite4.jpg "App")
 
 ![alt text](screencaps/realdeal.png "App")
 
