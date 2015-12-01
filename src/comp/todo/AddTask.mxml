@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:timer="comp.todo.*"
+			   xmlns:flib="flexlib.controls.*"
+			   xmlns:date="com.killerspaz.common.view.components.*"
+               title="" y="100"
+			   width="310" skinClass="skins.TitleWindowSkin"
+			   creationComplete="init()">
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			import mx.managers.PopUpManager;
+			
+			public var datas:Array = [];
+			
+			private function init():void {
+				addEventListener("close", closeHandler);
+				
+				var date:Date = new Date();
+				day.value = date.getDate();
+				month.value = date.getMonth();
+				year.value = date.getFullYear();
+				
+				day.addEventListener("change", checkDate);
+				month.addEventListener("change", checkDate);
+				year.addEventListener("change", checkDate);
+			}
+			
+			private function checkDate(e:Event):void {
+				if (month.value == 1) {
+					day.max = (year.value == 2012 || year.value == 2016 || year.value == 2020) ? 29 : 28;
+				}else if (month.value == 3 || month.value == 5 || month.value == 8 || month.value == 10) {
+					day.max = 30;
+				}else {
+					day.max = 31;
+				}
+				if (day.value > day.max) day.value = day.max;
+			}
+			
+			private function saveHand():void {
+				if (taskName.text != "") {
+					datas = [Date.parse((month.value+1) + "/" +day.value + "/" + year.value), taskName.text]
+					dispatchEvent(new Event("addTask"));
+					removeEventListener("close", closeHandler);
+					PopUpManager.removePopUp(this);
+				}else {
+					taskName.prompt = "You need something here !";
+				}
+			}
+			private function closeHandler(event:Event):void {
+				removeEventListener("close", closeHandler);
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</fx:Script>
+
+    <flib:PromptingTextInput id="taskName" prompt="Task name ..." styleName="textNormo" percentWidth="90" />
+	
+	<s:Button click="saveHand()" skinClass="skins.btn.TodoSave" styleName="textNormWhite" />
+	
+	<s:HGroup visible="false">
+		<date:MobileNumericStepper id="day" min="1" max="31" skinClass="com.killerspaz.common.view.components.MobileNumericStepperSkin" percentWidth="30" />
+		<date:MobileLabelStepper id="month" displayType="{MobileLabelStepper.TYPE_MONTH}" skinClass="com.killerspaz.common.view.components.MobileNumericStepperSkin" percentWidth="30"/>
+		<date:MobileNumericStepper id="year" min="2011" max="2030" skinClass="com.killerspaz.common.view.components.MobileNumericStepperSkin" percentWidth="30" />
+	</s:HGroup>
+
+	
+</s:TitleWindow>

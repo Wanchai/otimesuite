@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com:ViewNavigator xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:com="com.odelay.*"
+					   xmlns:timer="comp.timer.*"
+					   creationComplete="init();">
+
+	<fx:Script source="OTimerSource.as" />
+	
+	<com:states>
+        <s:State name="normal" />
+        <s:State name="debug" />
+        <s:State name="air" />
+        <s:State name="android" />
+    </com:states>
+		
+	<s:VGroup id="scr1" horizontalAlign="center" width="{SWIDTH}">
+		
+		<s:HGroup id="timeDisplay" percentWidth="100" verticalAlign="middle">
+			<s:Label id="timer" percentWidth="70" styleName="whiteBig" left="0" textAlign="center" text="00m00s" />
+			<s:ToggleButton id="pauseBtn" label="Pause" click="pauseTimer(event)" skinClass="skins.btn.PlayBtnSkin" right="0" />
+		</s:HGroup>
+		
+		<com:HR2 />
+		<timer:DragList id="ddg" />
+		<com:HR2 />
+		
+		<timer:AddTimeBox id="timeBox" />
+		
+		<s:Button click="goRight.play();" skinClass="skins.btn.MoreBtnSkin" percentWidth="100" left="0" />
+		
+	</s:VGroup>
+	
+	<!--Preset Zone-->
+	<s:VGroup id="scr2" horizontalAlign="center" width="{SWIDTH}" x="{SWIDTH}" paddingLeft="20" paddingRight="20">
+		
+		<s:Group width="100%">
+			<s:Button click="addPreset();" skinClass="skins.btn.NewPresetBtnSkin" />
+			<s:Button click="goLeft.play();" skinClass="skins.btn.BackBtnSkin" right="0" />
+		</s:Group>
+		
+<!--		<s:HGroup id="dropBox" name="dropBox" horizontalAlign="right" >
+			<s:BitmapImage smooth="true" source="@Embed(source='../skins/assets/timer/timer2_08.png')" />
+		</s:HGroup>-->
+		
+		<com:HR2 />
+		
+		<s:Group id="presetCont"></s:Group>
+		
+	</s:VGroup>
+		
+</com:ViewNavigator>

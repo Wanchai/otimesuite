@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+	
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata>
+
+    <s:states>
+        <s:State name="up"/>
+        <s:State name="over"/>
+        <s:State name="down"/>
+        <s:State name="disabled"/>
+    </s:states>
+	
+	<s:BitmapImage smooth="true" source="@Embed(source='../assets/chrono/stopwatch2_05.png')" includeIn="up" />
+	<s:BitmapImage smooth="true" source="@Embed(source='../assets/chrono/stopwatch2_05.png')" includeIn="disabled" alpha="0.5" />
+    <s:BitmapImage smooth="true" source="@Embed(source='../assets/chrono/stopwatch2_05.png')" includeIn="over" />
+    <s:BitmapImage smooth="true" source="@Embed(source='../assets/chrono/stopwatch2_05.png')" includeIn="down" alpha="0.5" />
+		
+	<s:Label id="labelDisplay" />
+	
+</s:SparkSkin>

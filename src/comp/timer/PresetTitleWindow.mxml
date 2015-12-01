@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:timer="comp.timer.*"
+               title="Add Preset" percentWidth="100"
+			   creationComplete="init()" skinClass="skins.TitleWindowSkin">
+			
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			import mx.managers.PopUpManager;
+			
+			private function init():void {
+				addEventListener("close", closeHandler);
+			}
+			private function closeHandler(event:Event):void {
+				event.target.removeEventListener("close", closeHandler);
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</fx:Script>
+	
+    <timer:AddTimeBox id="timeBox2" />
+
+</s:TitleWindow>

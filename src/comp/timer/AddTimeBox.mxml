@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:com="com.odelay.*"
+		 xmlns:flib="flexlib.controls.*"
+		 creationComplete="init()" horizontalAlign="center">
+		
+		<fx:Script>
+			<![CDATA[
+				import com.odelay.Utils;
+				import flash.events.Event;
+				
+				private var newNum:uint = 0;
+				public var newData:Object = new Object();
+				private var K:int = 0;
+				[Bindable]
+				private var comStr:String = "You can add some text ...";
+				
+				private function init():void {
+				}
+				
+				private function reset():void {
+					newNum = 0;
+					temps.text = "00m00s";
+					comment.text = "";
+				}
+				private function addTimer():void {
+					if (newNum > 0) {
+						newData = { time: Utils.calculDisplayTime(newNum), texte: comment.text, num: newNum };
+						dispatchEvent(new Event("timeAdded"));
+					}
+				}
+				private function sliderNum(e:Event):void {
+					// Valeur inverse de la vitesse de défilement
+					var compteTour:int = (e.currentTarget.value >= 0) ? hSlider.maximum - e.currentTarget.value : hSlider.maximum + e.currentTarget.value;
+					K++;
+					if (K / (compteTour*3) >= 1 && newNum + e.currentTarget.value > 0) {
+						K = 0;
+						newNum += e.currentTarget.value;
+						temps.text = Utils.calculDisplayTime(newNum);
+					}
+				}
+
+				public function empty():void{
+					reset();
+					newData = new Object();
+				}
+			]]>
+		</fx:Script>
+		<flib:PromptingTextInput id="comment" prompt="{comStr}" width="450" height="42" styleName="textNormo" maxChars="15" />
+		
+		<s:HGroup id="timeInput" verticalAlign="middle" paddingTop="7">
+			<s:Label id="temps" width="185" styleName="textNormWhite" text="00m00s" textAlign="right" />
+			<s:Button id="addBtn" click="addTimer();" skinClass="skins.btn.AddTimerBtn" />
+			<s:Button click="reset();" skinClass="skins.btn.ResetTimerBtn" />
+		</s:HGroup>
+		
+		<com:TouchSlider id="hSlider" minimum="-4" maximum="6" value="0" liveDragging="true" showDataTip="false" enterFrame="sliderNum(event)" skinClass="skins.TouchSliderSkin" />
+		
+</s:VGroup>

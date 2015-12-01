@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com:ViewNavigator xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:com="com.odelay.*"
+		creationComplete="init()">
+		
+	<fx:Script>
+		<![CDATA[
+			import comp.todo.ByDate;
+	
+			[Bindable]
+			public var td:ByDate = new ByDate();
+			
+			public function init():void {
+				
+			}
+		]]>
+			
+	</fx:Script>
+	
+	<com:states>
+        <s:State name="normal" />
+        <s:State name="debug" />
+        <s:State name="air" />
+        <s:State name="android" />
+    </com:states>
+	
+	<!--<s:Button label="-" click="goLeft.play();" width="42" />
+	<s:RichText id="richEdTxt" text="Date" width="195" />
+	<s:Button label="+" click="goRight.play();" width="42" />-->
+	
+</com:ViewNavigator>

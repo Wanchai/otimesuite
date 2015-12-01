@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/2.6">
+	
+	<id>OTimeSuite</id>
+	<name>OTime Suite</name>
+	<versionNumber>0.3</versionNumber>
+	<filename>OTimeSuite</filename>
+	
+	<description>OT is a free application for Android, Mac, PC and Linux designed to help you save and manage time. Current features include a Stopwatch, a Timer and a To do function. </description>
+	<copyright>www.agence-odelay.com</copyright>
+	
+	<initialWindow>
+		<title>OTimeSuite</title>
+		<content>OTimeSuite.swf</content>
+		<aspectRatio>portrait</aspectRatio>
+		<autoOrients>false</autoOrients>
+		<fullScreen>false</fullScreen>
+		<renderMode>gpu</renderMode>
+	</initialWindow>
+	<supportedProfiles>mobileDevice desktop</supportedProfiles>
+	<android>
+		<manifestAdditions>
+		   <![CDATA[<manifest>
+		   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" xmlns:android="android" />
+		   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" xmlns:android="android" />
+		   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" xmlns:android="android" />
+		   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" xmlns:android="android" />
+		   <uses-permission android:name="android.permission.INTERNET" xmlns:android="android" />
+		   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" xmlns:android="android" />
+		   </manifest>]]>
+		</manifestAdditions>
+	</android>
+	  <icon>
+		<image72x72>icons/OTimeSuite72.png</image72x72>
+		<image128x128>icons/OTimeSuite128.png</image128x128>
+	  </icon>
+</application>

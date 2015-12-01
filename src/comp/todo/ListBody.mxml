@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:comp="comp.todo.*"
+			   paddingTop="10" horizontalAlign="center"
+			   creationComplete="init()" gap="0">
+			
+	<fx:Script>
+		<![CDATA[
+		
+			import com.odelay.SqlConnect;
+			import com.odelay.Utils;
+			import comp.todo.AddTask;
+			import mx.collections.ArrayList;
+			import mx.core.ClassFactory;
+			import mx.core.IFactory;
+			import mx.managers.PopUpManager;
+			import flash.events.Event;
+			import skins.TodoListSkin2;
+			
+			public var db:SqlConnect;
+			public var listNum:int;
+			
+			private var titl:AddTask;
+			private var i:int = 0;
+			[Bindable]
+			private var dtProv:ArrayList = new ArrayList() ;
+				
+			public function init():void {
+				currentState = "tasks";
+				if (sdc.scroller) sdc.scroller.verticalScrollBar.setStyle("skinClass", TodoListSkin2);
+				currentState = "noTask";
+				
+				db = new SqlConnect("OTime.db");
+				db.addEventListener("ready", getTasks);
+				db.addEventListener("requestResult", showLists);
+			}
+			private function getTasks(e:Event):void {
+				db.reqArr = "SELECT name FROM todoLists WHERE id=" + listNum;
+				db.reqArr = "SELECT * FROM tasks WHERE list_id="+listNum;
+			}
+			private function showLists(e:Event):void {
+				i++;
+				if (i == 1) {
+					richEdTxt.text = db.rezArr[0].name;
+				}
+				else {
+					if (db.rezArr == null) {
+						currentState = "noTask";
+					}else {
+						currentState = "tasks";
+					}
+					dtProv.source = db.rezArr;
+				}
+			}
+			
+			private function richEdTxt_changeHand(e:Event):void {
+				changeBtn.visible = true;
+			}
+			private function upd(e:Event):void{
+				db.reqArr = "UPDATE todoLists SET name='" + richEdTxt.text + "' WHERE id=" + listNum;
+				changeBtn.visible = false;
+			}
+			private function customItemRendererFunction(item:*):IFactory {
+				return new ClassFactory(ListItemRen);
+			}
+			private function popop():void{
+				titl = AddTask(PopUpManager.createPopUp(this, AddTask , true)) ;
+				titl.addEventListener("addTask", taskAddHand);
+				titl.x = screen.width / 2 - titl.width / 2;
+			}
+			private function taskAddHand(e:Event):void {
+				db.reqArr = "INSERT INTO tasks (list_id, name, complete, date) VALUES (" + listNum + ", '" + titl.datas[1] + "', 0, " + titl.datas[0] + ")";
+				db.reqArr = "SELECT * FROM tasks WHERE list_id="+listNum;
+			}
+			private function clearComplete(e:Event):void{
+				for each (var item:* in sdc.selectedItems) {
+					db.reqArr = "DELETE FROM tasks WHERE id="+item.id;
+				}
+				sdc.selectedIndex = -1;
+				sdc.selectedIndices = null;
+				db.reqArr = "SELECT * FROM tasks WHERE list_id=" + listNum;
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+        <s:State name="noTask" />
+        <s:State name="tasks" />
+    </s:states>
+
+	<s:Group width="290" height="105">
+		<s:RichEditableText id="richEdTxt" heightInLines="2" change="richEdTxt_changeHand(event);" text="" styleName="textBig" percentWidth="100" textAlign="center" />
+		<s:Button id="changeBtn" bottom="0" right="0" label="Ok" skinClass="skins.btn.GreenBtn" visible="false" click="upd(event)" />
+	</s:Group>
+	
+	<s:BitmapImage id="topImg" source="@Embed(source='../../skins/assets/todo/Todo3_03.png')" includeIn="noTask"  />
+	
+	<comp:CheckList id="sdc" dataProvider="{dtProv}" contentBackgroundAlpha="0" borderVisible="false" maxHeight="480" minHeight="0" includeIn="tasks" itemRendererFunction="customItemRendererFunction" >
+		<comp:layout>
+            <s:VerticalLayout requestedMinRowCount="1" gap="0" />
+        </comp:layout>
+	</comp:CheckList>
+	
+	<s:Button skinClass="skins.btn.AddTaskSkin" click="popop();" label="Add a task" />
+	
+	<s:HGroup gap="0">
+		<!--<s:Button skinClass="skins.btn.ByList" />-->
+		<s:Rect width="158" alpha="0">
+			<s:fill>
+				<s:SolidColor color="0xCCCCCC" />
+			</s:fill>
+		</s:Rect>
+		<s:Button skinClass="skins.btn.Clear" click="clearComplete(event);" />
+	</s:HGroup>
+	
+</s:VGroup>

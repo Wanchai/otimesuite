@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com:ViewNavigator xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:com="com.odelay.*"
+        xmlns:comp="comp.todo.*"
+		creationComplete="init()">
+		
+	<fx:Script>
+		<![CDATA[
+			import com.odelay.SqlConnect;
+			//import comp.todo.ByList;
+			import flash.events.Event;
+	
+			/*[Bindable]
+			public var td:ByList = new ByList();*/
+			[Bindable]
+			public var listId:int = 3;
+			
+			public function init():void {
+				x = SWIDTH * -2;
+			}
+			public function gr():void {
+				goRight.play();
+				listId++;
+			}
+			public function gl():void{
+				goLeft.play();
+				listId--;
+			}
+		]]>
+			
+	</fx:Script>
+	
+	<com:states>
+        <s:State name="normal" />
+        <s:State name="debug" />
+        <s:State name="air" />
+        <s:State name="android" />
+    </com:states>
+	
+	<!-- screen 1 -->
+	<comp:ListBody id="scr1" width="{SWIDTH}" listNum="1" />
+	
+	<!-- screen 2 -->
+	<comp:ListBody id="scr2" width="{SWIDTH}" listNum="2" />
+	
+	<!-- screen 3 -->
+	<comp:ListBody id="scr3" width="{SWIDTH}" listNum="3" />
+	
+	<!-- screen 4 -->
+	<comp:ListBody id="scr4" width="{SWIDTH}" listNum="4" />
+	
+	<!-- screen 5 -->
+	<comp:ListBody id="scr5" width="{SWIDTH}" listNum="5" />
+	
+</com:ViewNavigator>

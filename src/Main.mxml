@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+						xmlns:s="library://ns.adobe.com/flex/spark"
+						xmlns:comp="comp.*"
+						creationComplete="init()"
+						frameRate="40"
+						skinClass="skins.AppSkin">
+	
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="debug" />
+        <s:State name="air" />
+        <s:State name="android" />
+    </s:states>
+	
+	<fx:Style source="assets/OTstyle.css" />
+	
+	<fx:Declarations>
+		<s:Animate id="menu1" target="{am}" repeatCount="1" disableLayout="true" duration="1000">
+            <s:motionPaths>
+				<s:SimpleMotionPath property="x" valueTo="0" />
+            </s:motionPaths>
+        </s:Animate>
+		<s:Animate id="menu2" target="{am}" repeatCount="1" disableLayout="true" duration="1000">
+            <s:motionPaths>
+				<s:SimpleMotionPath property="x" valueBy="-150" />
+            </s:motionPaths>
+        </s:Animate>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+		import com.odelay.SqlConnect;
+		import flash.events.KeyboardEvent;
+		import pages.* ;
+		import flash.events.Event;
+		import spark.events.IndexChangeEvent;
+		
+		private var chr:OChrono = new OChrono();
+		private var tim:OTimer = new OTimer();
+		private var todo:OTodo = new OTodo();
+		private var options:OOptions = new OOptions();
+		private var db:SqlConnect;
+		private var loadedPage:*;
+		private var globalState:String = "android";
+		private var menuOut:Boolean = true;
+		
+		public function init():void {
+			if (screen.width != 480) {
+				this.contentGroup.scaleX = screen.width/480;
+				this.contentGroup.scaleY = screen.width/480;
+			}
+
+			db = new SqlConnect("OTime.db");
+			db.addEventListener("ready", sendTables);
+			db.addEventListener("requestResult", sendListNames);
+			currentState = "android";
+			addEventListener(KeyboardEvent.KEY_DOWN, menuHand);
+			tim.top = 50;
+			chr.top = 50;
+			todo.top = 50;
+			options.top = 50;
+		}
+		
+		private function menuHand(e:KeyboardEvent):void {
+			if(e.keyCode == Keyboard.MENU){
+                e.preventDefault();
+				showMenu();
+            }
+		}
+		private function hideMenu():void {
+			menu2.play();
+			menuOut = false;
+		}
+		private function showMenu():void {
+			if (menuOut) {
+				hideMenu();
+			}else {
+				menu1.play();
+				menuOut = true;
+			}
+			
+		}
+		private function sendListNames(e:Event):void {
+			if (db.rezArr == null) {
+				db.reqArr = "INSERT INTO todoLists (id, name) values (5, 'List 5')";
+				db.reqArr = "INSERT INTO todoLists (id, name) values (1, 'List 1')";
+				db.reqArr = "INSERT INTO todoLists (id, name) values (3, 'List 3')";
+				db.reqArr = "INSERT INTO todoLists (id, name) values (2, 'List 2')";
+				db.reqArr = "INSERT INTO todoLists (id, name) values (4, 'List 4')";
+			}
+		}
+		private function sendTables(e:Event):void {
+			db.reqArr = "CREATE TABLE IF NOT EXISTS todoLists (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT);";
+			db.reqArr = "CREATE TABLE IF NOT EXISTS presets (id INTEGER PRIMARY KEY AUTOINCREMENT, texte TEXT, num INTEGER, time TEXT);";
+			db.reqArr = "CREATE TABLE IF NOT EXISTS runs (id INTEGER PRIMARY KEY AUTOINCREMENT, uid INTERGER, name TEXT, lap INTEGER, time INTEGER);";
+			db.reqArr = "CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, list_id INTERGER, name TEXT, complete BOOLEAN, date INTEGER, ordr INTEGER);";
+			
+			db.reqArr = "SELECT * FROM todoLists;";
+		}
+		
+		private function chHand(e:Event):void {
+			hideMenu();
+			switch (am.targ) {
+				case "timer" :
+					managePages(tim);
+				break;
+				case "chrono" :
+					managePages(chr);
+				break;
+				case "todo" :
+					managePages(todo);
+				break;
+				case "options" :
+					managePages(options);
+				break;
+				default:
+				break;
+			}
+		}
+		private function managePages(obj:*):void {
+			if (loadedPage != null) removeElement(loadedPage);
+			addElementAt(obj, 0);
+			obj.currentState = globalState;
+			loadedPage = obj;
+		}
+		]]>
+	</fx:Script>
+	
+	<s:Image smooth="true" source="@Embed(source='assets/barre-haut.png')" click="{showMenu();}" />
+	
+	<comp:ActionMenu id="am" change="chHand(event);" top="60" />
+	
+</s:Application>

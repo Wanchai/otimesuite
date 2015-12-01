@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	gap="0" verticalAlign="middle">
+	
+	<fx:Script>
+		<![CDATA[
+		import flash.events.Event;
+		
+		public var data:Object;
+		
+		private function playClick():void {
+			dispatchEvent(new Event("playPreset"));
+		}
+		private function delClick():void{
+			dispatchEvent(new Event("delPreset"));
+		}
+
+		]]>
+	</fx:Script>
+	
+	<s:Group click="playClick()">
+		<s:BitmapImage smooth="true" source="@Embed(source='../../skins/assets/timer/timer2_05.png')" />
+	</s:Group>
+	
+	<s:Group>
+		<s:BitmapImage smooth="true" source="@Embed(source='../../skins/assets/timer/timer2_06.png')" />
+		<s:HGroup percentWidth="100" top="12" verticalAlign="middle">
+			<s:Label id="lab1" styleName="textNorm" textAlign="right" percentWidth="58" />
+			<s:Label id="lab2" styleName="textNorm" textAlign="right" percentWidth="40" />
+		</s:HGroup>
+	</s:Group>
+	
+	<s:Group click="delClick()">
+		<s:BitmapImage smooth="true" source="@Embed(source='../../skins/assets/timer/timer2_07.png')" />
+	</s:Group>
+		
+</s:HGroup>

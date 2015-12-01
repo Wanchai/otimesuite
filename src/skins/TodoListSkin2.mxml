@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin name="TrackThumbOnlyHSBSkin"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        alpha.disabled="0.5"
+        alpha.inactive="0.5">
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" />
+        <s:State name="inactive" />
+    </s:states>
+
+    <fx:Metadata>
+        <![CDATA[
+            [HostComponent("spark.components.VScrollBar")]
+        ]]>
+    </fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+            static private const exclusions:Array = ["track", "thumb"];
+
+            override public function get colorizeExclusions():Array {
+                return exclusions;
+            }
+
+            override protected function initializationComplete():void {
+                super.initializationComplete();
+            }
+        ]]>
+    </fx:Script>
+
+    <!--- Defines the skin class for the HScrollBarSkin's track. The default skin class is HScrollBarTrackSkin. -->
+    <s:Button id="track" x="-55" top="0" bottom="0" width="50" focusEnabled="false" skinClass="spark.skins.spark.VScrollBarTrackSkin" />
+
+    <!--- Defines the skin class for the HScrollBarSkin's thumb. The default skin class is HScrollBarThumbSkin. -->
+    <s:Button id="thumb" x="-55" width="50" focusEnabled="false" visible.inactive="false" skinClass="spark.skins.spark.VScrollBarThumbSkin" />
+
+</s:SparkSkin>

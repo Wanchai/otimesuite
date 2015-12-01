@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+	currentStateChanging="onStChange(event)">
+	
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata>
+
+    <fx:Script>
+        <![CDATA[
+			import mx.events.StateChangeEvent;
+			
+			private function onStChange(e:StateChangeEvent):void{
+				
+			}
+        ]]>
+    </fx:Script>
+
+    <s:states>
+        <s:State name="up"/>
+        <s:State name="over"/>
+        <s:State name="down"/>
+        <s:State name="disabled"/>
+    </s:states>
+	
+	
+	<s:BitmapImage smooth="true" source="@Embed(source='../../lib/MenuButton.swf', symbol='up')" includeIn="up" />
+	
+	<s:BitmapImage smooth="true" source="@Embed(source='../../lib/MenuButton.swf', symbol='up')" includeIn="disabled" alpha="0.5" />
+
+    <s:BitmapImage smooth="true" source="@Embed(source='../../lib/MenuButton.swf', symbol='over')" includeIn="over" />
+
+    <s:BitmapImage smooth="true" source="@Embed(source='../../lib/MenuButton.swf', symbol='down')" includeIn="down" alpha="0.5" />
+		
+	<s:Label id="labelDisplay" />
+</s:SparkSkin>

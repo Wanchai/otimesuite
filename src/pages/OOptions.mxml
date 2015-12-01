@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com:ViewNavigator xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:com="com.odelay.*"
+					   xmlns:comp="comp.opt.*"
+					   percentHeight="100">
+					
+	<fx:Script>
+	<![CDATA[
+import flash.net.URLRequest;
+	
+	private var url1:String = "http://www.facebook.com/sharer.php?u=http://www.agence-odelay.com/otimesuite/&t=Help%20this%20app%20conquer%20the%20world!"
+	private var url2:String = "http://twitter.com/share?_=1300380539223&text=Help%20this%20app%20conquer%20the%20world!&url=http://www.agence-odelay.com/otimesuite/"
+	private var url3:String = "http://www.facebook.com/pages/OTime-Suite/183896778306107"
+	private var url4:String = "http://www.twitter.com/ThomasOdelay"
+	private var url5:String = "http://www.agence-odelay.com/otimesuite/"
+	private var url6:String = "http://www.noelmalicet.com/"
+	private var url7:String = "http://www.agence-odelay.com/"
+	
+	private function go(url:String):void{
+		navigateToURL(new URLRequest(url));
+	}
+	
+	]]>
+	</fx:Script>
+
+	<com:states>
+        <s:State name="normal" />
+        <s:State name="debug" />
+        <s:State name="air" />
+        <s:State name="android" />
+    </com:states>
+	
+	<s:VGroup id="scr1" horizontalAlign="center" width="{SWIDTH}" paddingLeft="24" paddingRight="24" paddingTop="25">
+		
+		<s:Label text="Help this app conquer the World!" styleName="textNormWhite" />
+		
+		<s:HGroup verticalAlign="middle" percentWidth="100">
+			<s:Label text="Share with" styleName="textNormWhite" percentWidth="50" />
+			<s:Button skinClass="skins.btn.AndroidBtn" click="goRight.play();" />
+		</s:HGroup>
+		
+		<s:HGroup verticalAlign="middle" percentWidth="100">
+			<s:Label text="Share on" styleName="textNormWhite" percentWidth="50" />
+			<s:Button skinClass="skins.btn.Facebook" click="{go(url1);}" />
+			<s:Button skinClass="skins.btn.Twitter" click="{go(url2);}" />
+		</s:HGroup>
+		
+		<s:HGroup verticalAlign="middle" percentWidth="100">
+			<s:Label text="Follow on" styleName="textNormWhite" percentWidth="50" />
+			<s:Button skinClass="skins.btn.Facebook" click="{go(url3);}" />
+			<s:Button skinClass="skins.btn.Twitter" click="{go(url4);}" />
+		</s:HGroup>
+		
+		<s:HGroup verticalAlign="middle" percentWidth="100">
+			<s:Label text="Official website" styleName="textNormWhite" percentWidth="50" />
+			<s:Button skinClass="skins.btn.Logo" click="{go(url5);}" />
+		</s:HGroup>
+		
+		<s:HGroup verticalAlign="middle" percentWidth="100">
+			<s:Label text="About us" styleName="textNormWhite" percentWidth="50" />
+			<s:Button skinClass="skins.btn.Nono" click="{go(url6);}" />
+			<s:Button skinClass="skins.btn.Odelay" click="{go(url7);}" />
+		</s:HGroup>
+		
+	</s:VGroup>
+	<s:VGroup id="scr2" width="{SWIDTH}" x="{SWIDTH}" horizontalAlign="center" percentHeight="100" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+		<s:Label text="Show this QR code to friends in need!" styleName="textNormWhite" />
+		<s:BitmapImage smooth="true" source="@Embed(source='../assets/QRCode-android.png')" />
+		<s:Button skinClass="skins.btn.BackBtnSkin" click="goLeft.play();"/>
+	</s:VGroup>
+		
+		
+</com:ViewNavigator>

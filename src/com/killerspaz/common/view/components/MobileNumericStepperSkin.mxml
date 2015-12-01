@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<fx:Metadata>
+		[HostComponent("com.killerspaz.common.view.components.MobileNumericStepper")]
+	</fx:Metadata>
+	
+	<s:VGroup gap="2" horizontalAlign="center">
+		<s:Button 		id="btnUp" 	label="+" styleName="{this.getStyle('buttonStyleName')}"/>
+		<s:TextInput	id="txtNum"	textAlign="center" restrict="0-9" width="80" />
+		<s:Button 		id="btnDn" 	label="-" styleName="{this.getStyle('buttonStyleName')}"/>
+	</s:VGroup>
+</s:Skin>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+			   creationComplete="init()">
+	<fx:Script>
+		<![CDATA[
+		import flash.events.Event;
+			
+		
+		public function init():void{
+			
+		}
+		private function gr():void{
+			dispatchEvent(new Event("rightClic"));
+		}
+		private function gl():void{
+			dispatchEvent(new Event("leftClic"));
+		}
+		public function richEdTxt_changeHand(e:Event):void{
+			
+		}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+        [Event(name = "leftClic", type = "flash.events.Event")]
+		[Event(name = "rightClic", type = "flash.events.Event")]
+    </fx:Metadata>
+	
+			<s:Button label="-" click="gl();" width="42" skinClass="skins.btn.TodoLeft" />
+			<s:RichEditableText id="richEdTxt3" heightInLines="2" change="richEdTxt_changeHand(event);" text="List 3" width="195" />
+			<s:Button label="+" click="gr();" width="42" skinClass="skins.btn.TodoRight" />
+
+		
+</s:HGroup>

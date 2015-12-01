@@ -1,0 +1,99 @@
+
+@font-face {
+	src: url("fonts/DINM____.TTF");
+	fontFamily: "ding";
+	embedAsCff: true;
+}
+@font-face {
+	src: url("fonts/DINB____.TTF");
+	fontFamily: "ding";
+	embedAsCff: true;
+	fontWeight: bold;
+}
+@font-face {
+	src: url("fonts/DIN_Black.ttf");
+	fontFamily: "dinBlack";
+	embedAsCff: true;
+}
+
+.bigBoldBlue{
+	fontSize: 40;
+	color: #93c3d1;
+	fontFamily: ding;
+	fontWeight: bold;
+}
+.btnLabel{
+	fontSize: 28;
+	color: white;
+	fontFamily: ding;
+	fontWeight: bold;
+}
+
+.stopWBlue{
+	fontSize: 25;
+	color: #93c3d1;
+	fontFamily: ding;
+	fontWeight: bold;
+}
+.textMed{
+	fontSize: 30;
+	color: #3a3a3a;
+	fontFamily: ding;
+}
+.textMedBold{
+	fontSize: 30;
+	color: #3a3a3a;
+	fontFamily: ding;
+	fontWeight: bold;
+}
+.textNorm{
+	fontSize: 25;
+	color: #3a3a3a;
+	fontFamily: ding;
+}
+.textNormSmall{
+	fontSize: 20;
+	color: #3a3a3a;
+	fontFamily: ding;
+}
+.textBig{
+	fontSize: 42;
+	color: #3a3a3a;
+	fontFamily: ding;
+}
+.textNormWhite{
+	fontSize: 25;
+	color: white;
+	fontFamily: ding;
+}
+.textNormo{
+	fontSize: 25;
+	color: #3a3a3a;
+}
+.test {
+	fontSize: 42;
+	color: white;
+	fontFamily: dinBlack;
+}
+.whiteBig {
+	fontSize: 42;
+	color: white;
+	fontFamily: ding;
+}
+.whiteBig52 {
+	fontSize: 52;
+	color: white;
+	fontFamily: ding;
+}
+.whiteSmall {
+	fontSize: 20;
+	color: white;
+	fontFamily: ding;
+}
+.whiteSmallBold {
+	fontSize: 18;
+	color: white;
+	fontFamily: ding;
+	fontWeight: bold;
+}
+

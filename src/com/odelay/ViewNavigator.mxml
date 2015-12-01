@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" gap="0"
+	 creationComplete="init()">
+					
+	<fx:Declarations>
+		
+		<s:Animate id="goRight" target="{this}" repeatCount="1" disableLayout="true">
+            <s:motionPaths>
+				<s:SimpleMotionPath property="x" valueBy="-{SWIDTH}" />
+            </s:motionPaths>
+        </s:Animate>
+		
+		<s:Animate id="goLeft" target="{this}" repeatCount="1" disableLayout="true">
+            <s:motionPaths>
+                <s:SimpleMotionPath property="x" valueBy="{SWIDTH}" />
+            </s:motionPaths>
+        </s:Animate>
+		
+	</fx:Declarations>
+	
+	<fx:Script>
+			<![CDATA[
+			[Bindable]
+			public var SWIDTH:Number = 0;
+			
+			private function init():void {
+				//SWIDTH = screen.width;
+				SWIDTH = 480;
+			}
+			]]>
+		</fx:Script>
+</s:HGroup>

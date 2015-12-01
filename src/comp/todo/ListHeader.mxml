@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+			   creationComplete="init()"
+			   verticalAlign="middle">
+	<fx:Script>
+		<![CDATA[
+		import flash.events.Event;
+		
+		public var listId:int;
+			
+		public function init():void{
+			
+		}
+		private function gr():void {
+			if (listId == 4) btR.visible = false;
+			if (listId == 1) btL.visible = true;
+			dispatchEvent(new Event("clicRight"));
+		}
+		private function gl():void {
+			if (listId == 5) btR.visible = true;
+			if (listId == 2) btL.visible = false;
+			dispatchEvent(new Event("clicLeft"));
+		}
+		]]>
+	</fx:Script>
+	
+	<fx:Metadata>
+        [Event("clicLeft", type = "flash.events.Event")]
+		[Event("clicRight", type = "flash.events.Event")]
+    </fx:Metadata>
+	
+	<s:Button id="btL" label="-" click="gl();" skinClass="skins.btn.TodoLeft" />
+	<s:BitmapImage smooth="true" source="@Embed(source='../../skins/assets/todo/ToDo2_03.png')" />
+	<s:Button id="btR" label="+" click="gr();" skinClass="skins.btn.TodoRight" />
+			
+</s:HGroup>

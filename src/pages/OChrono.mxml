@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com:ViewNavigator xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:com="com.odelay.*"
+					   creationComplete="init();"
+						xmlns:charts="mx.charts.*"
+						xmlns:series="mx.charts.series.*"
+						xmlns:chartClasses="mx.charts.chartClasses.*">
+					
+	
+	<fx:Script>
+	<![CDATA[
+	import as3.Chrono;
+	import as3.ChronoGraph;
+	import com.odelay.SkinnableAlert;
+	import com.odelay.Utils;
+	import flash.events.Event;
+	import mx.charts.chartClasses.IAxis;
+	import skins.AlertSkin2;
+	
+	[Bindable]
+	public var chr:Chrono;
+	[Bindable]
+	public var chrGr:ChronoGraph = new ChronoGraph();
+	
+	public function init():void {
+		chr = new Chrono(this);
+		chrGr.addEventListener("addLine", addListHand);
+	}
+	
+	private function delSess(e:Event):void {
+		SkinnableAlert.show("Are you sure you want to delete this session?", 2, scr2, chrGr.alrt_closeHandler, AlertSkin2);
+	}
+	private function showGraph():void {
+		chrGr.getSessions(new Event("nul"));
+		goRight.play();
+	}
+	private function addListHand(e:Event):void {
+		linechart.series = chrGr.series;
+		linechart.dataProvider = chrGr.dataGraph;
+		//linechart.invalidateSeriesStyles();
+	}
+	public function dispTime(labelValue:Object, previousValue:Object, axis:IAxis):String {
+		return Utils.calculDisplayTime(labelValue as Number);
+	}
+	
+	]]>
+	</fx:Script>
+
+	<com:states>
+        <s:State name="normal" />
+        <s:State name="debug" />
+        <s:State name="air" />
+        <s:State name="android" />
+    </com:states>
+	
+	<!--  -->
+	
+	<s:VGroup id="scr1" horizontalAlign="left" width="{SWIDTH}" percentHeight="100" paddingLeft="14" paddingRight="14">
+		
+		<s:Label text="THIS LAP" styleName="stopWBlue" />
+		<s:Label id="thisLap" text="{chr.thisLap}" styleName="whiteBig52" />
+		
+		<com:HR2 />
+		
+		<s:Label text="PREVIOUS" styleName="stopWBlue" />
+		
+		<s:VGroup percentWidth="100" gap="0">
+			
+			<s:Group>
+				<s:BitmapImage smooth="true" source="@Embed(source='../skins/assets/chrono/stopwatch_03.png')" />
+				<s:Label id="previous" text="{chr.previous}" styleName="textMed" top="7" right="30" />
+			</s:Group>
+			
+			<s:Group y="10">
+				<s:BitmapImage smooth="true" source="@Embed(source='../skins/assets/chrono/stopwatch_05.png')" />
+				<s:Label id="previous2" text="{chr.previous2}" styleName="textMed" top="7" right="30" />
+			</s:Group>
+			
+		</s:VGroup>
+		
+        <s:SkinnableContainer skinClass="skins.SkinContSkin" percentHeight="100" horizontalCenter="0" verticalCenter="0">
+				
+			<s:HGroup percentWidth="100" paddingBottom="0" paddingLeft="10" paddingRight="10" paddingTop="10">
+				<s:Label text="TOTAL" percentWidth="60" styleName="whiteSmallBold" />
+				<s:Label text="LAPS" percentWidth="40" styleName="whiteSmallBold" />
+			</s:HGroup>
+			
+			<s:HGroup percentWidth="100" paddingLeft="10" paddingRight="10" paddingTop="0">
+				<s:Label id="Total" text="{chr.total}" percentWidth="60" styleName="bigBoldBlue" />
+				<s:Label id="Laps" text="{chr.lap}" percentWidth="40" styleName="bigBoldBlue" />
+			</s:HGroup>
+			
+			<s:HGroup gap="0">
+				<s:ToggleButton id="startBtn" label="{chr.startBtnLabelTxt}" selected="{chr.startBtnLabelSel}" click="chr.launch(event);" skinClass="skins.btn.StartPauseSkin" />
+				<s:Button id="lap" click="chr.addLap();" skinClass="skins.btn.Lap" />
+			</s:HGroup>
+			
+		</s:SkinnableContainer>
+		
+		<s:HGroup>
+			<s:Button label="Graph" click="showGraph();" skinClass="skins.btn.BlueBtn" styleName="btnLabel" />
+			<s:Button label="Reset" click="chr.resetAll();" skinClass="skins.btn.BlueBtn" styleName="btnLabel" />
+			<s:Button label="Save" click="chr.saveRuns();" skinClass="skins.btn.BlueBtn" styleName="btnLabel" />
+		</s:HGroup>
+		
+	</s:VGroup>
+	
+	<!-- -->
+		
+	<s:VGroup id="scr2" width="{SWIDTH}" x="{SWIDTH}" horizontalAlign="center" percentHeight="100" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+		<!--<s:VGroup>-->
+			
+			<s:HGroup>
+				<s:DropDownList id="sessionList" percentWidth="100" labelField="label" prompt="Pick a session" dataProvider="{chrGr.dataList}" change="chrGr.changeDDL(event);" skinClass="skins.GraphDropDown" />
+				<s:Button skinClass="skins.btn.CloseGraph" click="delSess(event);" />
+			</s:HGroup>
+			
+			<s:SkinnableContainer backgroundColor="0xFFFFFF" percentWidth="100">
+				
+				<charts:LineChart id="linechart" color="0x323232" showDataTips="true" percentWidth="100" percentHeight="100">
+
+					<charts:horizontalAxis>
+						<charts:CategoryAxis categoryField="lap"/>
+					</charts:horizontalAxis>
+
+					<charts:verticalAxis>
+						<charts:LinearAxis labelFunction="dispTime"/>
+					</charts:verticalAxis>
+					
+				</charts:LineChart>
+				
+			</s:SkinnableContainer>
+			
+			<s:Button label="Reset" click="chrGr.resetGraph();" skinClass="skins.btn.BlueBtn" styleName="btnLabel" />
+			<s:Button click="goLeft.play();" skinClass="skins.btn.BackBtnSkin" styleName="btnLabel" />
+			
+		<!--</s:VGroup>-->
+	</s:VGroup>
+</com:ViewNavigator>

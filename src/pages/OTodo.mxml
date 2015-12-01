@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:com="com.odelay.*"
+					   xmlns:comp="comp.todo.*"
+					   creationComplete="init();" percentHeight="100">
+					
+	<fx:Script>
+	<![CDATA[
+	import as3.Todo;
+	import com.odelay.SqlConnect;
+	import spark.components.VGroup;
+	
+	[Bindable]
+	public var db:SqlConnect;
+	
+	public function init():void {
+		//this.currentState = "byList";
+		db = new SqlConnect("OTime.db");
+	}
+	]]>
+	</fx:Script>
+
+	<s:states>
+        <s:State name="normal" />
+        <s:State name="debug" />
+        <s:State name="air" />
+        <s:State name="android" />
+        <s:State name="byDate" />
+        <s:State name="byList" />
+    </s:states>
+	
+	<s:VGroup id="ma" gap="0" horizontalAlign="center">
+		<s:Rect width="300" height="110">
+			<s:fill>
+				<s:SolidColor color="0xCCCCCC" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect width="480" height="680" left="0">
+			<s:fill>
+				<s:SolidColor color="0xCCCCCC" />
+			</s:fill>
+		</s:Rect>
+	</s:VGroup>
+	
+	<comp:ListHeader left="8" clicRight="{tdList.gr()}" clicLeft="{tdList.gl()}" listId="{tdList.listId}" />
+
+	<comp:TodoList id="tdList" maskType="clip" mask="{ma}" />
+	<!--<comp:TodoDate includeIn="byDate" />-->
+	
+</s:Group>

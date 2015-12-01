@@ -1,0 +1,9 @@
+<update xmlns="http://ns.adobe.com/air/framework/update/description/1.0">
+  
+  <version>0.1.33</version>
+  
+  <url>http://127.0.0.1/OTimeSuite/air/OTimeSuite.air</url>
+  
+  <description>0.1 - First version</description>
+  
+</update>
